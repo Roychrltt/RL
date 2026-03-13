@@ -2,7 +2,7 @@
 
 void	update(uint8_t s, uint8_t a, float r, uint8_t s2, std::vector<std::vector<float>>& qtable)
 {
-	float alpha = 0.1, gamma = 0.4;
+	float alpha = 0.1, gamma = 0.25;
 	float maxNext = std::max({qtable[s2][0], qtable[s2][1], qtable[s2][2]});
 	qtable[s][a] += alpha * (r + gamma * maxNext - qtable[s][a]);
 }
@@ -33,7 +33,7 @@ int main(int ac, char *av[])
 			int a = 0;
 			if (qtable[state][1] > qtable[state][a]) a = 1;
 			if (qtable[state][2] > qtable[state][a]) a = 2;
-			if (i < 1000 && roll(rng) < rand) a = ra(rng);
+			if (i < 4000 && roll(rng) < rand) a = ra(rng);
 			auto e = snake.takeAction(board, static_cast<Action>(a));
 			float r = 0.0;
 			if (e == StepEvent::None) r = -0.1;
@@ -48,6 +48,7 @@ int main(int ac, char *av[])
 		}
 		len = std::max(len, curLen);
 		std::cout << "Training loop: " << i << ". Snake length: " << curLen << std::endl;
+		std::cout << "Step count: " << stepCnt << std::endl;
 		rand *= decay;
 		lll += curLen;
 	}
