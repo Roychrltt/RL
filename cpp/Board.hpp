@@ -58,7 +58,8 @@ class Board
 			while (inBounds(next))
 			{
 				idx = next.first * GRID_W + next.second;
-				if (grid[idx] == Cell::GreenApple) return Cell::GreenApple;
+				if (grid[idx] != Cell::Empty)
+					return grid[idx] == Cell::GreenApple? Cell::GreenApple : Cell::Empty;
 				next.first += dx;
 				next.second += dy;
 			}

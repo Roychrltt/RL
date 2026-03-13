@@ -2,7 +2,7 @@
 
 void	update(uint8_t s, uint8_t a, float r, uint8_t s2, std::vector<std::vector<float>>& qtable)
 {
-	float alpha = 0.1, gamma = 0.7;
+	float alpha = 0.1, gamma = 0.4;
 	float maxNext = std::max({qtable[s2][0], qtable[s2][1], qtable[s2][2]});
 	qtable[s][a] += alpha * (r + gamma * maxNext - qtable[s][a]);
 }
@@ -39,8 +39,8 @@ int main(int ac, char *av[])
 			if (e == StepEvent::None) r = -0.1;
 			else if (e == StepEvent::GreenApple) r = 50.0;
 			else if (e == StepEvent::Closer) r = 0.01;
-			else if (e == StepEvent::RedApple) r = -20.0;
-			else r = -30;
+			else if (e == StepEvent::RedApple) r = -25.0;
+			else r = -50;
 			int s2 = snake.getState(board);
 			update(state, a, r, s2, qtable);
 			curLen = std::max(curLen, snake.length());
